@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///Users/uffe.hjorth/Downloads/powerpadel_8.html -->
+<!-- saved from url=(0053)file:///Users/uffe.hjorth/Downloads/powerpadel_9.html -->
 <html lang="da"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -53,7 +53,7 @@ html, body { background: var(--bg); font-family: -apple-system,'Helvetica Neue',
   <div class="brand">
     <h1>Power<span>Padel</span></h1>
     <p>6 SPILLERE · 15 TORSDAGE · INGEN UNDSKYLDNINGER</p>
-    <div id="sync-bar" class="ok">✅ Live · 14.59</div>
+    <div id="sync-bar" class="ok">✅ Live · 15.07</div>
   </div>
 
   <div id="content"><div class="header-row"><div></div><div class="hcell" style="color:#555">PET</div><div class="hcell" style="color:#555">RAS</div><div class="hcell" style="color:#555">JOA</div><div class="hcell" style="color:#555">ZNÖ</div><div class="hcell" style="color:#555">KEN</div><div class="hcell" style="color:#555">UFF</div><div class="hcell" style="color:#333">VIK</div><div></div></div><div class="month-label">MARTS 2026</div><div class="date-row">
@@ -1820,24 +1820,26 @@ function syncStatus(msg, ok) {
   el.className = ok ? 'ok' : '';
 }
 
-try {
-  firebase.initializeApp(firebaseConfig);
-  db = firebase.database();
-  db.ref('padel').on('value', snap => {
-    state = snap.val() || {};
-    render();
-    const t = new Date().toLocaleTimeString('da-DK',{hour:'2-digit',minute:'2-digit'});
-    syncStatus('✅ Live · ' + t, true);
-  }, err => {
-    syncStatus('❌ ' + err.message, false);
-  });
-} catch(e) {
-  syncStatus('❌ ' + e.message, false);
-  render();
-}
-
 setupTaps();
 render();
+
+window.addEventListener('load', function() {
+  try {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    db.ref('padel').on('value', snap => {
+      state = snap.val() || {};
+      render();
+      const t = new Date().toLocaleTimeString('da-DK',{hour:'2-digit',minute:'2-digit'});
+      syncStatus('✅ Live · ' + t, true);
+    }, err => {
+      syncStatus('❌ ' + err.message, false);
+    });
+  } catch(e) {
+    syncStatus('❌ ' + e.message, false);
+    render();
+  }
+});
 </script>
 
 
