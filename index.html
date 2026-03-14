@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)file:///Users/uffe.hjorth/Downloads/powerpadel_6.html -->
+<html lang="da"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0a">
+<title>PowerPadel</title>
+<style>
+:root {
+  --accent: #ccff00;
+  --bg: #0a0a0a;
+  --bg2: #141414;
+  --dim: #2a2a2a;
+  --cell: clamp(36px, 10.5vw, 50px);
+  --date-col: clamp(42px, 12vw, 56px);
+  --count-col: clamp(28px, 8vw, 38px);
+  --racket: clamp(24px, 7vw, 34px);
+  --font-abbr: clamp(8px, 2.2vw, 11px);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { background: var(--bg); font-family: -apple-system,'Helvetica Neue',Arial,sans-serif; color: #fff; min-height: 100dvh; }
+#app { width: 100%; max-width: 480px; margin: 0 auto; padding: env(safe-area-inset-top,16px) 12px calc(env(safe-area-inset-bottom,0px) + 40px); }
+.brand { padding-top: 16px; margin-bottom: 18px; }
+.brand h1 { font-size: clamp(24px,7vw,30px); font-weight: 900; letter-spacing: -0.5px; }
+.brand h1 span { color: var(--accent); }
+.brand p { font-size: clamp(9px,2.5vw,11px); color: #555; letter-spacing: 1.5px; margin-top: 4px; }
+#sync-bar { font-size: 11px; margin-top: 5px; color: #444; min-height: 14px; transition: color 0.4s; }
+#sync-bar.ok { color: var(--accent); }
+.player-picker { margin-bottom: 20px; background: var(--bg2); border-radius: 12px; padding: 14px; }
+.player-picker p { font-size: 10px; color: #777; letter-spacing: 1.5px; margin-bottom: 10px; }
+.picker-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; }
+.picker-btn { padding: 9px 4px; border-radius: 8px; border: 1.5px solid var(--dim); background: transparent; color: #666; font-size: clamp(9px,2.5vw,11px); font-weight: 700; cursor: pointer; touch-action: manipulation; transition: all 0.15s; }
+.picker-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(204,255,0,0.08); }
+.header-row { display: grid; grid-template-columns: var(--date-col) repeat(7,var(--cell)) var(--count-col); margin-bottom: 4px; align-items: end; }
+.hcell { display: flex; justify-content: center; font-size: var(--font-abbr); font-weight: 700; letter-spacing: 0.5px; color: #555; padding-bottom: 4px; }
+.month-label { color: var(--accent); font-size: clamp(9px,2.5vw,11px); font-weight: 700; letter-spacing: 2px; margin: 16px 0 6px; padding-bottom: 6px; border-bottom: 1px solid #1e1e1e; }
+.date-row { display: grid; grid-template-columns: var(--date-col) repeat(7,var(--cell)) var(--count-col); align-items: center; border-bottom: 1px solid #131313; }
+.dnum { font-size: clamp(18px,5.5vw,22px); font-weight: 800; line-height: 1; }
+.dday { font-size: clamp(8px,2.2vw,9px); color: #444; letter-spacing: 1px; margin-top: 2px; }
+.cell { display: flex; justify-content: center; align-items: center; height: var(--cell); }
+.cell.tap { cursor: pointer; touch-action: manipulation; }
+.cell.tap:active svg { transform: scale(0.82); }
+.cell svg { transition: transform 0.12s; width: var(--racket); height: var(--racket); }
+.count-cell { display: flex; justify-content: flex-end; align-items: center; font-size: clamp(9px,2.5vw,11px); font-weight: 700; padding-right: 2px; }
+.footer-note { margin-top: 28px; background: var(--bg2); border-radius: 10px; padding: 12px 14px; text-align: center; font-size: 11px; color: #444; line-height: 1.6; }
+.loading { text-align: center; padding: 60px 0; color: #444; font-size: 13px; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="brand">
+    <h1>Power<span>Padel</span></h1>
+    <p>6 SPILLERE · 15 TORSDAGE · INGEN UNDSKYLDNINGER</p>
+    <div id="sync-bar" class="ok">✅ Live · 10.24</div>
+  </div>
+
+  <div id="content"><div class="header-row"><div></div><div class="hcell" style="color:#555">PET</div><div class="hcell" style="color:#555">RAS</div><div class="hcell" style="color:#555">JOA</div><div class="hcell" style="color:#555">ZNÖ</div><div class="hcell" style="color:#555">KEN</div><div class="hcell" style="color:#555">UFF</div><div class="hcell" style="color:#333">VIK</div><div></div></div><div class="month-label">MARTS 2026</div><div class="date-row">
+        <div><div class="dnum">19</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0319" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0319" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0319" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0319" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0319" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0319" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0319" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">26</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0326" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0326" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0326" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0326" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0326" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0326" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0326" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="month-label">APRIL 2026</div><div class="date-row">
+        <div><div class="dnum">2</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0402" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0402" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0402" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0402" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0402" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0402" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0402" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">9</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0409" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0409" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0409" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0409" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0409" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0409" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0409" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">16</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0416" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0416" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0416" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0416" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0416" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0416" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0416" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">23</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0423" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0423" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0423" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0423" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0423" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0423" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0423" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">30</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0430" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0430" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0430" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0430" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0430" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0430" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0430" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="month-label">MAJ 2026</div><div class="date-row">
+        <div><div class="dnum">7</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0507" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0507" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0507" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0507" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0507" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0507" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0507" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">14</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0514" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0514" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0514" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0514" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0514" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0514" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0514" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">21</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0521" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0521" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0521" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0521" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0521" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0521" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0521" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">28</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0528" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0528" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0528" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0528" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0528" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0528" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0528" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="month-label">JUNI 2026</div><div class="date-row">
+        <div><div class="dnum">4</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0604" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0604" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0604" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0604" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0604" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0604" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0604" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">11</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0611" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0611" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0611" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0611" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0611" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0611" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0611" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">18</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0618" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0618" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0618" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0618" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0618" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0618" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0618" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="date-row">
+        <div><div class="dnum">25</div><div class="dday">TOR.</div></div>
+        <div class="cell tap" data-dk="0625" data-pid="peter"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0625" data-pid="rasmus"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0625" data-pid="joachim"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0625" data-pid="znotze"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0625" data-pid="kenneth"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0625" data-pid="uffe"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div><div class="cell tap" data-dk="0625" data-pid="vikar"><svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="none" stroke="#303030" stroke-width="2.2"></ellipse>
+    <circle cx="10" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="7" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="9" r="1.8" fill="#202020"></circle>
+    <circle cx="8" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="13" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="18" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="23" cy="14" r="1.8" fill="#202020"></circle>
+    <circle cx="10" cy="19" r="1.8" fill="#202020"></circle>
+    <circle cx="15" cy="20" r="1.8" fill="#202020"></circle>
+    <circle cx="20" cy="19" r="1.8" fill="#202020"></circle>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="#303030"></rect>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="#161616"></rect>
+  </svg></div>
+        <div class="count-cell" style="color:transparent"></div>
+      </div><div class="footer-note">Tryk på ketcheren for at melde til · Alle ser hinandens valg live</div></div>
+</div>
+
+<script src="./PowerPadel_files/firebase-app-compat.js"></script>
+<script src="./PowerPadel_files/firebase-database-compat.js"></script>
+<script>
+// ============================================================
+//  UDFYLD DIN FIREBASE CONFIG HER
+// ============================================================
+const firebaseConfig = {
+  apiKey:            "AIzaSyB99boVsRH6f3_4CEhyNdSBMIaBRSCPEnU",
+  authDomain:        "powerpadel-640f0.firebaseapp.com",
+  databaseURL:       "https://powerpadel-640f0-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:         "powerpadel-640f0",
+  storageBucket:     "powerpadel-640f0.firebasestorage.app",
+  messagingSenderId: "26764818787",
+  appId:             "1:26764818787:web:dda49f368386bc65747b56"
+};
+// ============================================================
+
+const PLAYERS = [
+  {id:'peter',   abbr:'PET', full:'Peter'},
+  {id:'rasmus',  abbr:'RAS', full:'Rasmus'},
+  {id:'joachim', abbr:'JOA', full:'Joachim'},
+  {id:'znotze',  abbr:'ZNÖ', full:'Znötze'},
+  {id:'kenneth', abbr:'KEN', full:'Kenneth'},
+  {id:'uffe',    abbr:'UFF', full:'Uffe'},
+  {id:'vikar',   abbr:'VIK', full:'Vikar'},
+];
+
+const DATES = [
+  {key:'0319',day:19,mon:'MARTS 2026'},
+  {key:'0326',day:26,mon:'MARTS 2026'},
+  {key:'0402',day:2, mon:'APRIL 2026'},
+  {key:'0409',day:9, mon:'APRIL 2026'},
+  {key:'0416',day:16,mon:'APRIL 2026'},
+  {key:'0423',day:23,mon:'APRIL 2026'},
+  {key:'0430',day:30,mon:'APRIL 2026'},
+  {key:'0507',day:7, mon:'MAJ 2026'},
+  {key:'0514',day:14,mon:'MAJ 2026'},
+  {key:'0521',day:21,mon:'MAJ 2026'},
+  {key:'0528',day:28,mon:'MAJ 2026'},
+  {key:'0604',day:4, mon:'JUNI 2026'},
+  {key:'0611',day:11,mon:'JUNI 2026'},
+  {key:'0618',day:18,mon:'JUNI 2026'},
+  {key:'0625',day:25,mon:'JUNI 2026'},
+];
+
+let state = {};
+let db;
+
+function racket(active) {
+  const f = active ? '#ccff00' : 'none';
+  const s = active ? '#ccff00' : '#303030';
+  const h = active ? '#0a0a0a' : '#202020';
+  return `<svg viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="15" cy="13" rx="12" ry="12" fill="${f}" stroke="${s}" stroke-width="2.2"/>
+    <circle cx="10" cy="9"  r="1.8" fill="${h}"/>
+    <circle cx="15" cy="7"  r="1.8" fill="${h}"/>
+    <circle cx="20" cy="9"  r="1.8" fill="${h}"/>
+    <circle cx="8"  cy="14" r="1.8" fill="${h}"/>
+    <circle cx="13" cy="14" r="1.8" fill="${h}"/>
+    <circle cx="18" cy="14" r="1.8" fill="${h}"/>
+    <circle cx="23" cy="14" r="1.8" fill="${h}"/>
+    <circle cx="10" cy="19" r="1.8" fill="${h}"/>
+    <circle cx="15" cy="20" r="1.8" fill="${h}"/>
+    <circle cx="20" cy="19" r="1.8" fill="${h}"/>
+    <rect x="12.5" y="25" width="5" height="11" rx="2.5" fill="${s}"/>
+    <rect x="13.5" y="28" width="3" height="1.5" rx="0.75" fill="${active?'#0a0a0a':'#161616'}"/>
+    <rect x="13.5" y="31" width="3" height="1.5" rx="0.75" fill="${active?'#0a0a0a':'#161616'}"/>
+  </svg>`;
+}
+
+function countPlayers(dk) {
+  if (!state[dk]) return 0;
+  return PLAYERS.filter(p => p.id !== 'vikar' && state[dk][p.id]).length;
+}
+
+function render() {
+  const months = {};
+  DATES.forEach(d => { if (!months[d.mon]) months[d.mon]=[]; months[d.mon].push(d); });
+
+  let html = `<div class="header-row"><div></div>${PLAYERS.map(p=>`<div class="hcell" style="color:${p.id==='vikar'?'#333':'#555'}">${p.abbr}</div>`).join('')}<div></div></div>`;
+
+  Object.entries(months).forEach(([mon, dates]) => {
+    html += `<div class="month-label">${mon}</div>`;
+    dates.forEach(({key,day}) => {
+      const cnt = countPlayers(key);
+      const cc = cnt>=4 ? '#ccff00' : cnt>0 ? '#666' : 'transparent';
+      html += `<div class="date-row">
+        <div><div class="dnum">${day}</div><div class="dday">TOR.</div></div>
+        ${PLAYERS.map(p => {
+          const on = !!(state[key]&&state[key][p.id]);
+          return `<div class="cell tap" data-dk="${key}" data-pid="${p.id}">${racket(on)}</div>`;
+        }).join('')}
+        <div class="count-cell" style="color:${cc}">${cnt>0?cnt+'/6':''}</div>
+      </div>`;
+    });
+  });
+
+  html += `<div class="footer-note">Tryk på ketcheren for at melde til · Alle ser hinandens valg live</div>`;
+  document.getElementById('content').innerHTML = html;
+}
+
+function setupTaps() {
+  const content = document.getElementById('content');
+  content.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    const cell = e.target.closest('[data-dk]');
+    if (cell) toggle(cell.dataset.dk, cell.dataset.pid);
+  }, {passive: false});
+  content.addEventListener('click', function(e) {
+    const cell = e.target.closest('[data-dk]');
+    if (cell) toggle(cell.dataset.dk, cell.dataset.pid);
+  });
+}
+
+function toggle(dk, pid) {
+  if (!db) return;
+  const cur = !!(state[dk]&&state[dk][pid]);
+  db.ref(`padel/${dk}/${pid}`).set(!cur);
+}
+
+function syncStatus(msg, ok) {
+  const el = document.getElementById('sync-bar');
+  el.textContent = msg;
+  el.className = ok ? 'ok' : '';
+}
+
+try {
+  firebase.initializeApp(firebaseConfig);
+  db = firebase.database();
+  db.ref('padel').on('value', snap => {
+    state = snap.val() || {};
+    render();
+    const t = new Date().toLocaleTimeString('da-DK',{hour:'2-digit',minute:'2-digit'});
+    syncStatus('✅ Live · ' + t, true);
+  }, err => {
+    syncStatus('❌ ' + err.message, false);
+  });
+} catch(e) {
+  syncStatus('❌ ' + e.message, false);
+  render();
+}
+
+setupTaps();
+render();
+</script>
+
+
+</body></html>
